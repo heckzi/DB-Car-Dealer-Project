@@ -43,21 +43,33 @@ export const selectSql = {
     const [rows]=await promisePool.query(`select * from reservation where rc_ssn=${cssn}`);
     return rows;
   },
-  getcarinfo:async()=>{
-    console.log(vin);
-    const [rows]=await promisePool.query(`select * from vehicle where vin=${vin.r_vin}`);
+  getcarinfo:async(vin)=>{
+    const [rows]=await promisePool.query(`select * from vehicle where vin='${vin}'`);
     return rows;
   },
   
-  getcars: async () => {
-    const sql = `select * from vehicle `
-    const [result] = await promisePool.query(sql);
-    return result;
+  getavailablecars: async () => {
+    const [rows]=await promisePool.query(`select * from vehicle where not exists (select * from reservation where vin=r_vin)`);
+    return rows;
   },
   getrelatedcars: async(data)=>{ // 로그인한 id가 듣는 수업을 select하는 함수
     const sql =`select * from vehicle`
     const [result] = await promisePool.query(sql);
     return result;
+  }
+}
+export const deleteSql ={
+  deletereserve:async(r_vin,cssn)=>{
+    console.log(r_vin,cssn)
+    const sql = `delete from reservation where r_vin='${r_vin}' and rc_ssn='${cssn}'`
+    await promisePool.query(sql);
+  }
+}
+export const insertSql ={
+  insertreserve:async(r_vin,cssn)=>{
+    console.log(r_vin,cssn)
+    const sql = `insert into reservation value r_vin='${r_vin}' and rc_ssn='${cssn}'`
+    await promisePool.query(sql);
   }
 }
 // export const insertSql ={
@@ -67,4 +79,4 @@ export const selectSql = {
 //     await promisePool.query(sql);
 //     await promisePool.query(sql2);
 //   }
-// }l
+// }

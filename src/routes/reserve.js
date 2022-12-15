@@ -14,17 +14,18 @@
 
 import express from "express";
 // sql import
-import { insertSql, selectSql } from "../database/sql";
+import { insertSql,deleteSql, selectSql } from "../database/sql";
 const router = express.Router();
 
 router.get('/', async function (req, res) {
     // 차 정보 불러오기
-    const availablecars= await selectSql.getcars();
-    if (req.cookies.user) {
+    const userinfo=await selectSql.getcustomer(req.cookies.cssn);
+    const reservelist=await selectSql.getreserve(req.cookies.cssn);
+    const availablecars= await selectSql.getavailablecars();
+    if (req.cookies.cssn) {
         // 불러온 user 정보 같이 넘겨주기
-        const userinfo=await selectSql.getcustomer();
-        const reservelist=await selectSql.getreserve();
-        res.render('reserve',{ availablecars,userinfo,reservelist, user: req.cookies.user });
+      
+        res.render('reserve',{ availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
     }   
     else{
         res.redirect('/');
@@ -33,12 +34,19 @@ router.get('/', async function (req, res) {
     
   
 });
-router.post('/detail',async(_req,res)=>{ 
-    res.render('detail');
-    vin=reservelist;
-    returnvin();
-    // console.log(returnvin());
-    res.redirect('/detail');
+router.post('/delete/:r_vin',async(req,res)=>{ 
+    const r_vin=req.params.r_vin;
+    // const cssn=req.params.cssn;
+    console.log(r_vin,req.cookies.cssn);
+    deleteSql.deletereserve(r_vin,req.cookies.cssn);
+    res.redirect('/');
+});
+router.post('/:r_vin',async(req,res)=>{ 
+    const r_vin=req.params.r_vin;
+    // const cssn=req.params.cssn;
+    console.log(r_vin,req.cookies.cssn);
+    deleteSql.deletereserve(r_vin,req.cookies.cssn);
+    res.redirect('/');
 });
 
 module.exports = router;

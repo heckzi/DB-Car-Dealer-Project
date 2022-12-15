@@ -17,21 +17,23 @@ import express from "express";
 import { insertSql, selectSql } from "../database/sql";
 const router = express.Router();
 
-router.get('/', async function (req, res) {
+router.get('/:r_vin', async (req, res) => {
     // 차 세부정보 불러오기
-    const cardetail = await selectSql.getcarinfo();
-    if (req.cookies.user) {
+    // const data2 = req.body.detail;
+    const data = req.params.r_vin;
+    const cardetail = await selectSql.getcarinfo(data);
+    if (req.cookies.cssn) {
         // 불러온 user 정보 같이 넘겨주기
-        res.render('customer',{ cardetail,user: req.cookies.user});
+        res.render('detail',{ cardetail,user: req.cookies.user});
     }
     else {
         res.render('login');
         res.redirect('/');
     }
 });
-router.post('/',async(_req,res)=>{ 
-    returnvin();
-    res.redirect('/detail');
+router.post('/',async(req,res)=>{ 
+    // const data = req.params.r_vin;
+    res.redirect('/detail'); //위에 get 요청으로 간다 
 });
 
 module.exports = router;

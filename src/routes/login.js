@@ -57,7 +57,7 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
      })
     if (checkLogin&&checkrole=='customer') { // 고객일때
         res.cookie('cssn',cssn,{
-            expires: new Date(Date.now() + 10000), // ms 단위 (3600000: 1시간 유효)
+            expires: new Date(Date.now() + 360000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
         })
@@ -65,7 +65,7 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
     }   
     else if (checkLogin&&checkrole=='admin') { //관리자일때
         res.cookie('sssn',sssn,{
-            expires: new Date(Date.now() + 10000), // ms 단위 (3600000: 1시간 유효)
+            expires: new Date(Date.now() + 360000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
         })
