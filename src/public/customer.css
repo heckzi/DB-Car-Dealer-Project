@@ -1,0 +1,19 @@
+
+table {
+  display: table;
+  width: 100%;
+}
+.availablecar{
+  color: beige;
+}
+tr,
+td {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #b8f0c0 solid 1px !important;
+  height: 30px;
+  width:100%; 
+  /* 너비 지정해줌 */
+}

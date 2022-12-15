@@ -1,0 +1,48 @@
+
+<link rel="stylesheet" type="text/css" href="customer.css" />
+<h1>안녕하세요{{#each userinfo}}<span> {{c_name}}</span>{{/each}} 관리자님의 차량 관리페이지입니다.</h1>
+<h1>{{title1}}</h1>
+<table>
+    <div class="availablecar"> <tr>
+        <td>차대번호</td>
+        <td>모델명</td>
+        <td>색상</td>
+        <td>생산연도</td>
+        <td>가격($)</td>
+        <td>분류</td>
+    </tr></class>
+   
+    {{#each availablecars}}
+    <tr>
+        <td>{{vin}}</td>
+        <td>{{model}}</td>
+        <td>{{{color}}}</td>
+        <td>{{productionyear}}</td>
+        <td>{{price}}</td>
+        <td>{{category}}</td>
+    </tr>
+    {{/each}}
+</table>
+
+{{!-- <h1>{{title2}}</h1> 
+<table>
+    <tr>
+        <td>학생 ID</td>
+        <td>이름</td>
+        <td>이메일</td>
+        <td>전화번호</td>
+        <td>전공</td>
+        <td>학번</td>
+    </tr>
+    {{#each student}}
+    <tr>
+        <td>{{S_ID}}</td>
+        <td>{{S_Name}}</td>
+        <td>{{S_Email}}</td>
+        <td>{{S_Phone_num}}</td>
+        <td>{{Major}}</td>
+        <td>{{SSN}}</td>
+
+    </tr>
+    {{/each}}
+</table> --}}

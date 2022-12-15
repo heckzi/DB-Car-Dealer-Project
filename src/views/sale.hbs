@@ -1,0 +1,51 @@
+
+<link rel="stylesheet" type="text/css" href="customer.css" />
+<h1>안녕하세요{{#each userinfo}}<span> {{c_name}}</span>{{/each}} 고객님, 구매할 차량과 날짜를 선택해주십시오.</h1>
+<h1>{{title1}}</h1>
+<table>
+    <div class="availablecar"> <tr>
+        <td>차대번호</td>
+        <td>모델명</td>
+        <td>색상</td>
+        <td>생산연도</td>
+        <td>가격($)</td>
+        <td>분류</td>
+        <td>구매</td>
+    </tr></class>
+   
+    {{#each availablecars}}
+    <tr>
+        <td>{{vin}}</td>
+        <td>{{model}}</td>
+        <td>{{{color}}}</td>
+        <td>{{productionyear}}</td>
+        <td>{{price}}</td>
+        <td>{{category}}</td>
+        <td><button class ='insert' type="submit">구매하기</button></td>
+    </tr>
+    {{/each}}
+</table>
+</div>
+
+{{!-- <h1>{{title2}}</h1> 
+<table>
+    <tr>
+        <td>학생 ID</td>
+        <td>이름</td>
+        <td>이메일</td>
+        <td>전화번호</td>
+        <td>전공</td>
+        <td>학번</td>
+    </tr>
+    {{#each student}}
+    <tr>
+        <td>{{S_ID}}</td>
+        <td>{{S_Name}}</td>
+        <td>{{S_Email}}</td>
+        <td>{{S_Phone_num}}</td>
+        <td>{{Major}}</td>
+        <td>{{SSN}}</td>
+
+    </tr>
+    {{/each}}
+</table> --}}
