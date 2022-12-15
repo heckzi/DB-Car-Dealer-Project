@@ -15,7 +15,6 @@
 import express from "express";
 // sql import
 import { insertSql, selectSql } from "../database/sql";
-
 const router = express.Router();
 
 router.get('/', async function (req, res) {
@@ -31,6 +30,7 @@ router.get('/', async function (req, res) {
     }
 });
 router.post('/',async(_req,res)=>{ 
+    returnvin();
     res.redirect('/detail');
 });
 

@@ -1,10 +1,9 @@
 import async from "hbs/lib/async";
 import mysql from "mysql2";
-import {returnCssn} from "../routes/login"//login.js 의 C_ssn 얻어오기
-import {returnSssn} from "../routes/login"//login.js 의 S_ssn 얻어오기
-import {returnvin} from "../routes/reserve"
+// import {returnCssn} from "../routes/login"//login.js 의 C_ssn 얻어오기
+// import {returnSssn} from "../routes/login"//login.js 의 S_ssn 얻어오기
 // 데이터베이스 연결
-var cssn,sssn,vin; //전역변수 생성
+// var cssn,sssn; //전역변수 생성
 // function savecssn(){ // 다른 함수에서 접근하도록 return 하는 함수 
 //   return cssn;
 // }
@@ -36,20 +35,18 @@ export const selectSql = {
     const [rows] = await promisePool.query(`select * from user`);
     return rows
   },
-  getcustomer:async()=>{
-    cssn=returnCssn(); //inputid변수에 login.js에서 가져온 id를 넣어줌
+  getcustomer:async(cssn)=>{
     const [rows]=await promisePool.query(`select * from customer where c_ssn=${cssn}`);
     return rows;
   }, 
-   getreserve:async()=>{
-    cssn=returnCssn(); //inputid변수에 login.js에서 가져온 id를 넣어줌
+   getreserve:async(cssn)=>{
     const [rows]=await promisePool.query(`select * from reservation where rc_ssn=${cssn}`);
     return rows;
   },
   getcarinfo:async()=>{
-    vin=returnvin();
+    vin
     console.log(vin);
-    const [rows]=await promisePool.query(`select * from vehicle where vin=${vin}`);
+    const [rows]=await promisePool.query(`select * from vehicle where vin=${vin.r_vin}`);
     return rows;
   },
   

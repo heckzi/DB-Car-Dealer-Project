@@ -15,10 +15,6 @@
 import express from "express";
 // sql import
 import { insertSql, selectSql } from "../database/sql";
-export var vin;
-export function returnvin(){
-    return vin;
-}
 const router = express.Router();
 
 router.get('/', async function (req, res) {
@@ -28,10 +24,6 @@ router.get('/', async function (req, res) {
         // 불러온 user 정보 같이 넘겨주기
         const userinfo=await selectSql.getcustomer();
         const reservelist=await selectSql.getreserve();
-        vin=reservelist;
-        returnvin();
-        // console.log(returnvin());
-
         res.render('reserve',{ availablecars,userinfo,reservelist, user: req.cookies.user });
     }   
     else{
@@ -43,6 +35,9 @@ router.get('/', async function (req, res) {
 });
 router.post('/detail',async(_req,res)=>{ 
     res.render('detail');
+    vin=reservelist;
+    returnvin();
+    // console.log(returnvin());
     res.redirect('/detail');
 });
 

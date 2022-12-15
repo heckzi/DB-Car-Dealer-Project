@@ -15,13 +15,7 @@
 import cookieParser from "cookie-parser";
 import express from "express";
 import { selectSql } from "../database/sql";
-export var cssn,sssn; //sql.js에서 사용할 수 있도록 export
-export function  returnCssn(){ //uc_id return하는 함수이고 sql.js에서 사용한다.
-    return cssn;
-}
-export function  returnSssn(){ //uc_id return하는 함수이고 sql.js에서 사용한다.
-    return sssn;
-}
+
 const router = express.Router();
 
 // 쿠키 및 세션 설정
@@ -39,14 +33,11 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 넘어왔음
     const vars = req.body; //대소문자 구분함 , hbs의 name을 받아옴
-   
     const users = await selectSql.getUsers(); //sql에서 불러온 user
-
-    let whoAmI = '';
-    let myssn='';
     let checkLogin = false;
     var checkrole = '';
-
+    var cssn='';
+    var sssn='';
     users.map((user) => { // for 루프라고 생각하면 됨
         //for(let i =0; i<users.length; i++);{users}
         //각 user의 수마다 루프가 돈다고 생각
@@ -54,11 +45,8 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
         if (vars.id == user.id && vars.password == user.password) {
             // user 다음엔 대문자를 구분한다!! sql에서 불러오지만 js는 대문자 구분함.
             checkLogin = true;
-            whoAmI = user.id;
             cssn=user.uc_ssn;
             sssn=user.us_ssn;
-            returnCssn();
-            returnSssn();
             if(user.role=='admin'){
                 checkrole='admin';
             }
@@ -67,17 +55,16 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
             }
         }
      })
-
     if (checkLogin&&checkrole=='customer') { // 고객일때
-        res.cookie('user', whoAmI, 'cssn',cssn,{
+        res.cookie('cssn',cssn,{
             expires: new Date(Date.now() + 10000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
         })
-        res.redirect('/customer');
+        res.redirect('/customer'); //redirect는 get요청
     }   
     else if (checkLogin&&checkrole=='admin') { //관리자일때
-        res.cookie('user', whoAmI, 'sssn',sssn,{
+        res.cookie('sssn',sssn,{
             expires: new Date(Date.now() + 10000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
@@ -87,9 +74,6 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
     else {
         res.redirect('/');
     }
-    
-    
-
 })
 
 module.exports = router;

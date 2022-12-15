@@ -23,16 +23,14 @@ router.get('/', async function (req, res) {
     const availablecars= await selectSql.getcars();
     if (req.cookies.user) {
         // 불러온 user 정보 같이 넘겨주기
-        const userinfo=await selectSql.getcustomer();
+        const userinfo=await selectSql.getcustomer(user.uc_ssn);
         res.render('customer',{ availablecars,userinfo,
                                  user: req.cookies.user});
     }
     else {
         res.render('login');
         res.redirect('/');
-
     }
-
 });
 router.post('/',async(_req,res)=>{ 
     res.redirect('/reserve');
