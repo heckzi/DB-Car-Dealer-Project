@@ -60,15 +60,14 @@ export const selectSql = {
 }
 export const deleteSql ={
   deletereserve:async(r_vin,cssn)=>{
-    console.log(r_vin,cssn)
     const sql = `delete from reservation where r_vin='${r_vin}' and rc_ssn='${cssn}'`
     await promisePool.query(sql);
   }
 }
 export const insertSql ={
-  insertreserve:async(r_vin,cssn)=>{
-    console.log(r_vin,cssn)
-    const sql = `insert into reservation value r_vin='${r_vin}' and rc_ssn='${cssn}'`
+  insertreserve:async(r_vin,cssn,date)=>{
+    console.log(r_vin,cssn,date)
+    const sql = `insert into reservation(rc_ssn, r_vin, r_date) values ('${cssn}','${r_vin}','${date}')`
     await promisePool.query(sql);
   }
 }

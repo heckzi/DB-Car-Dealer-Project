@@ -10,6 +10,7 @@
             <td>생산연도</td>
             <td>가격($)</td>
             <td>분류</td>
+            <td>예약날짜</td>
             <td>예약</td>
         </tr></class>
    
@@ -21,9 +22,11 @@
             <td>{{productionyear}}</td>
             <td>{{price}}</td>
             <td>{{category}}</td>
-             <form method="post" action="/reserve">
+             <form method="post" action="/reserve/{{r_vin}}">
                 <td>
-                <button name='reserve' value="{{r_vin}}"formaction="/reserve/{{r_vin}}">예약</button>
+                <input type="date" name="reservedate" required="required" >
+                </td>
+                <td> <button name="reserve"  value="{{vin}}" formaction="/reserve/{{vin}}">예약</button>
                 </td>
             </form>
         {{/each}}
