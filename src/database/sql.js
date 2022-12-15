@@ -44,7 +44,6 @@ export const selectSql = {
     return rows;
   },
   getcarinfo:async()=>{
-    vin
     console.log(vin);
     const [rows]=await promisePool.query(`select * from vehicle where vin=${vin.r_vin}`);
     return rows;
