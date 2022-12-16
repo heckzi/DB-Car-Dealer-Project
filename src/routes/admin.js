@@ -13,31 +13,37 @@
 // limitations under the License.
 
 import express from "express";
+import async from "hbs/lib/async";
 // sql import
-import { insertSql, selectSql } from "../database/sql";
+import {updateSql,deleteSql, insertSql, selectSql } from "../database/sql";
 
 const router = express.Router();
 
 router.get('/', async function (req, res) {
     // 차 정보 불러오기
-    const availablecars= await selectSql.getcars();
-    if (req.cookies.user) {
+
+    if (req.cookies.sssn) {
         // 불러온 user 정보 같이 넘겨주기
-        const userinfo=await selectSql.getcustomer();
-        res.render('customer',{ availablecars,userinfo, user: req.cookies.user });
+        const availablecars= await selectSql.getavailablecars();
+        const soldcar= await selectSql.getsoldcar(req.cookies.sssn);
+        const customerinfo=await selectSql.getallcustomer();
+        const sname=await selectSql.getsname(req.cookies.sssn);
+        console.log(sname)
+        res.render('admin',{sname,soldcar,customerinfo, availablecars, sssn: req.cookies.sssn });
     } else {
         res.render('/login')
     }
 
 });
-router.post('/',async(_req,res)=>{ 
-    const vars=_req.body; //신청 버튼을 눌렀을 때 수업 ID (C_ID) 받아오기위함
-    const data={
-        C_ID:vars.cid,
-    };
-    await insertSql.insertClass(data); //수업신청 sql문 실행
-    console.log(data)
-    res.redirect('/customer');
+router.post('/delete/:vin',async(req,res)=>{ 
+    const vin=req.params.vin;
+    deleteSql.deletevehicle(vin);
+    res.redirect('/admin');
 });
+router.post('/update/:vin',async(req,res)=>{
+    const vin=req.params.vin;
+    
+    
+})
 
 module.exports = router;

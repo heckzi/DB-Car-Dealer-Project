@@ -1,51 +1,62 @@
 
 <link rel="stylesheet" type="text/css" href="customer.css" />
-<h1>안녕하세요{{#each userinfo}}<span> {{c_name}}</span>{{/each}} 고객님, 구매할 차량과 날짜를 선택해주십시오.</h1>
+<h1>예약된 차량중 판매완료할 차량과 날짜를 선택해주십시오.</h1>
 <h1>{{title1}}</h1>
-<table>
-    <div class="availablecar"> <tr>
-        <td>차대번호</td>
-        <td>모델명</td>
-        <td>색상</td>
-        <td>생산연도</td>
-        <td>가격($)</td>
-        <td>분류</td>
-        <td>구매</td>
-    </tr></class>
-   
-    {{#each availablecars}}
-    <tr>
-        <td>{{vin}}</td>
-        <td>{{model}}</td>
-        <td>{{{color}}}</td>
-        <td>{{productionyear}}</td>
-        <td>{{price}}</td>
-        <td>{{category}}</td>
-        <td><button class ='insert' type="submit">구매하기</button></td>
-    </tr>
-    {{/each}}
-</table>
-</div>
-
-{{!-- <h1>{{title2}}</h1> 
-<table>
-    <tr>
-        <td>학생 ID</td>
-        <td>이름</td>
-        <td>이메일</td>
-        <td>전화번호</td>
-        <td>전공</td>
-        <td>학번</td>
-    </tr>
-    {{#each student}}
-    <tr>
-        <td>{{S_ID}}</td>
-        <td>{{S_Name}}</td>
-        <td>{{S_Email}}</td>
-        <td>{{S_Phone_num}}</td>
-        <td>{{Major}}</td>
-        <td>{{SSN}}</td>
-
-    </tr>
-    {{/each}}
-</table> --}}
+    <table>
+        <div class="salecar">
+            <tr>
+            <td>예약번호</td>
+            <td>차대번호</td>
+            <td>고객번호</td>
+            <td>예약일자</td>
+            <td>차량정보</td>
+            <td>판매자이름</td>
+            <td>판매확정</td>
+            <td>예약취소</td>
+            </tr></class>
+            </div>
+            {{#each reservelist}}
+            <tr>
+            <td>{{reservenum}}</td>
+            <td>{{{r_vin}}}</td>
+            <td>{{rc_ssn}}</td>
+            <td>{{r_date}}</td>
+            <form method="get" action="/detail">
+                <td>
+                <button name ="detail" value="{{r_vin}}" formaction="/detail/{{r_vin}}">상세정보</button>
+                </td>
+            </form>
+            <form method="post" action="/sale">
+                <td><input id="sname" type="text" name="sname" required placeholder="딜러 이름"></td>
+                <td><button name='sale' value="{{r_vin}}"formaction="/sale/{{r_vin}}">판매확정</button></td>
+            </form>
+            <form method="post" action="/sale/delete">
+                <td>
+                <button name ="detail" value="{{r_vin}}" formaction="/sale/delete/{{r_vin}}">예약취소</button>
+                </td>
+            </form>
+            </tr>
+            {{/each}}
+    </table>
+    <table>
+        <h1>판매완료된 모든 차량</h1>
+        <div class="soldcar">
+            <tr>
+                <td>구매번호</td>
+                <td>차대번호</td>
+                <td>고객 번호</td>
+                <td>판매자 번호</td>
+                <td>판매일자</td>
+            </class>
+            </tr>
+            </div>
+            <tr>
+              {{#each allsoldcar}}
+            <td>{{salenum}}</td>
+            <td>{{s_vin}}</td>
+            <td>{{sc_ssn}}</td>
+            <td>{{ss_ssn}}</td>
+            <td>{{s_date}}</td>
+            </tr>
+              {{/each}}
+    </table>

@@ -14,23 +14,33 @@
 
 import express from "express";
 // sql import
-import { insertSql, selectSql } from "../database/sql";
+import { deleteSql, insertSql, selectSql } from "../database/sql";
 
 const router = express.Router();
 
 router.get('/', async function (req, res) {
-    // 차 정보 불러오기
-    const availablecars= await selectSql.getcars();
-    if (req.cookies.user) {
-        // 불러온 user 정보 같이 넘겨주기
-        const userinfo=await selectSql.getcustomer();
-        res.render('sale',{ availablecars,userinfo, user: req.cookies.user });
+    if (req.cookies.sssn) {
+    const reservelist=await selectSql.getreserve();
+    const soldcar=await selectSql.getsoldcar(req.cookies.sssn);
+    const allsoldcar=await selectSql.getallsoldcar();
+        res.render('sale',{ allsoldcar,soldcar, reservelist, sssn: req.cookies.sssn });
     } else {
+        res.redirect('/');
         res.render('/login')
     }
 
 });
-router.post('/',async(_req,res)=>{ 
+router.post('/:r_vin',async(req,res)=>{
+    const r_vin=req.params.r_vin;
+    let date=new Date().toLocaleDateString().replace(/\./g, '').replace(/\s/g, '-'); //오늘날짜 받기
+    const sssn=await selectSql.getsssn(req.body.sname);
+    await insertSql.insertsale(r_vin,sssn[0].s_ssn,req.cookies.sssn,date);
+    res.redirect('/sale');
+});
+router.post('/delete/:r_vin',async(req,res)=>{ //예약취소
+    const r_vin=req.params.r_vin;
+    const sssn=req.cookies.sssn;
+    await deleteSql.deletereserve(r_vin);
     res.redirect('/sale');
 });
 

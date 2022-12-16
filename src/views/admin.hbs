@@ -1,48 +1,53 @@
 
 <link rel="stylesheet" type="text/css" href="customer.css" />
-<h1>안녕하세요{{#each userinfo}}<span> {{c_name}}</span>{{/each}} 관리자님의 차량 관리페이지입니다.</h1>
+<h1>안녕하세요 {{#each sname}}<span>{{s_name}}</span>{{/each}} 관리자님의 차량 관리페이지입니다.</h1>
 <h1>{{title1}}</h1>
 <table>
-    <div class="availablecar"> <tr>
+    본인께서 판매하신 차량 내역입니다.
+    <div class="sold"><tr>
+        <td>판매번호</td>
         <td>차대번호</td>
-        <td>모델명</td>
-        <td>색상</td>
-        <td>생산연도</td>
-        <td>가격($)</td>
-        <td>분류</td>
+        <td>딜러번호</td>
+        <td>고객번호</td>
+        <td>판매날짜</td>
     </tr></class>
-   
-    {{#each availablecars}}
+    {{#each soldcar}}
     <tr>
-        <td>{{vin}}</td>
-        <td>{{model}}</td>
-        <td>{{{color}}}</td>
-        <td>{{productionyear}}</td>
-        <td>{{price}}</td>
-        <td>{{category}}</td>
+        <td>{{salenum}}</td>
+        <td>{{s_vin}}</td>
+        <td>{{ss_ssn}}</td>
+        <td>{{sc_ssn}}</td>
+        <td>{{s_date}}</td>
     </tr>
     {{/each}}
+</table><table>
+    <h1>판매완료 및 예약 취소하기</h1>
+<button onclick="location.href = 'http://localhost:3000/sale'">차량 판매/예약취소하기</button>
+</table>
+<table>
+    <h1>DB에서 삭제할 차량을 선택하세요</h1>
+    <div class="delete"><tr>
+     <td>차대번호</td>
+     <td>모델명</td>
+     <td>색상</td>
+     <td>생산연도</td>
+     <td>가격($)</td>
+     <td>분류</td>
+     <td>삭제</td>
+    </tr></class>
+     {{#each availablecars}}
+        <tr>
+            <td>{{vin}}</td>
+            <td>{{model}}</td>
+            <td>{{{color}}}</td>
+            <td>{{productionyear}}</td>
+            <td>{{price}}</td>
+            <td>{{category}}</td>
+            <form method="post" action="/sale">
+                <td>
+                <button name='delete' value="{{vin}}"formaction="/admin/delete/{{vin}}">삭제하기</button>
+                </td>
+        </tr>
+     {{/each}}
 </table>
 
-{{!-- <h1>{{title2}}</h1> 
-<table>
-    <tr>
-        <td>학생 ID</td>
-        <td>이름</td>
-        <td>이메일</td>
-        <td>전화번호</td>
-        <td>전공</td>
-        <td>학번</td>
-    </tr>
-    {{#each student}}
-    <tr>
-        <td>{{S_ID}}</td>
-        <td>{{S_Name}}</td>
-        <td>{{S_Email}}</td>
-        <td>{{S_Phone_num}}</td>
-        <td>{{Major}}</td>
-        <td>{{SSN}}</td>
-
-    </tr>
-    {{/each}}
-</table> --}}

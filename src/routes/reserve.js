@@ -22,7 +22,7 @@ router.get('/', async function (req, res) {
         // 불러온 cssn 정보 같이 넘겨주기
             // 차 정보 불러오기
         const userinfo=await selectSql.getcustomer(req.cookies.cssn);
-        const reservelist=await selectSql.getreserve(req.cookies.cssn);
+        const reservelist=await selectSql.getreserve();
         const availablecars= await selectSql.getavailablecars();
         res.render('reserve',{ availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
     }   
