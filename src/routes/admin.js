@@ -1,17 +1,3 @@
-// Copyright 2021 kms
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 import express from "express";
 import async from "hbs/lib/async";
 // sql import
@@ -37,13 +23,58 @@ router.get('/', async function (req, res) {
 });
 router.post('/delete/:vin',async(req,res)=>{ 
     const vin=req.params.vin;
-    deleteSql.deletevehicle(vin);
+    await deleteSql.deletevehicle(vin);
     res.redirect('/admin');
 });
-router.post('/update/:vin',async(req,res)=>{
-    const vin=req.params.vin;
-    
-    
-})
+router.post('/insert',async(req,res)=>{
+    const vars = req.body;
+    const carinfo={
+        vin:vars.vin,
+        model:vars.model,
+        color:vars.color,
+        productionyear:vars.productionyear,
+        price:vars.price,
+        category:vars.category
+    };
+    await insertSql.insertcar(carinfo.vin, carinfo.model, carinfo.color, carinfo.productionyear, carinfo.price, carinfo.category);
+    res.redirect('/admin');
+});
+router.post('/update/vin/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const u_vin=req.body.vin;
+    await updateSql.updatevin(u_vin,vin);
+    res.redirect('/admin');
+});
+router.post('/update/model/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const model=req.body.model;
+    await updateSql.updatemodel(model,vin);
+
+    res.redirect('/admin');
+});
+router.post('/update/color/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const color=req.body.color;
+    await updateSql.updatecolor(color,vin);
+    res.redirect('/admin');
+});
+router.post('/update/productionyear/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const productionyear=req.body.productionyear;
+    await updateSql.updateproductionyear(productionyear,vin);
+    res.redirect('/admin');
+});
+router.post('/update/price/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const price=req.body.price;
+    await updateSql.updateprice(price,vin);
+    res.redirect('/admin');
+});
+router.post('/update/category/:vin',async(req,res)=>{ 
+    const vin =req.params.vin;
+    const category=req.body.category;
+    await updateSql.updatecategory(category,vin);
+    res.redirect('/admin');
+});
 
 module.exports = router;

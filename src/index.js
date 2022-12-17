@@ -49,8 +49,8 @@ app.use(express.static(path.join(__dirname, 'public'))) //hbs 파일이 css 를 
 app.use(logger("dev"));
 
 app.use("/", loginRouter);
-app.use("/customer", customerRouter); //로그인을 성공적으로 했을때
-app.use("/admin", adminRouter); //로그인을 성공적으로 했을때
+app.use("/customer", customerRouter); //고객이 로그인을 성공적으로 했을때
+app.use("/admin", adminRouter); //관리자가 로그인을 성공적으로 했을때
 app.use("/reserve",reserveRouter);
 app.use("/sale",saleRouter);
 app.use("/detail",detailRouter);

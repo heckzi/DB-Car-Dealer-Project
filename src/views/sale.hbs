@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="customer.css" />
+<link rel="stylesheet" type="text/css" href="all.css" />
 <h1>예약된 차량중 판매완료할 차량과 날짜를 선택해주십시오.</h1>
 <h1>{{title1}}</h1>
     <table>
@@ -10,7 +10,7 @@
             <td>고객번호</td>
             <td>예약일자</td>
             <td>차량정보</td>
-            <td>판매자이름</td>
+            <td>판매자번호</td>
             <td>판매확정</td>
             <td>예약취소</td>
             </tr></class>
@@ -27,7 +27,7 @@
                 </td>
             </form>
             <form method="post" action="/sale">
-                <td><input id="sname" type="text" name="sname" required placeholder="딜러 이름"></td>
+                <td><input id="sname" type="number" name="sssn" required placeholder="판매자 번호"></td>
                 <td><button name='sale' value="{{r_vin}}"formaction="/sale/{{r_vin}}">판매확정</button></td>
             </form>
             <form method="post" action="/sale/delete">
@@ -60,3 +60,4 @@
             </tr>
               {{/each}}
     </table>
+        <button style="margin: 1%;" onClick="history.go(-1)">뒤로가기</button>

@@ -1,9 +1,9 @@
 
-<link rel="stylesheet" type="text/css" href="customer.css" />
+<link rel="stylesheet" type="text/css" href="all.css" />
 <h1>차량의 상세 정보입니다.</h1>
 <h1>{{title1}}</h1>
-<table>
-    <div class="detail"> <tr>
+<table style="margin:2%;border:#b8f0c0 solid 1px !important; width:50%;">
+    <div class="detail"> <tr style="border:#b8f0c0 solid 1px !important;">
         <td>차대번호</td>
         <td>모델명</td>
         <td>색상</td>
@@ -11,7 +11,7 @@
         <td>가격($)</td>
         <td>분류</td>
     </tr>
-   
+       </class>
     {{#each cardetail}}
     <tr>
         <td>{{vin}}</td>
@@ -22,8 +22,7 @@
         <td>{{category}}</td>
     </tr>
     {{/each}}
-    </class>
 </table>
-        <button onClick="history.go(-1)">뒤로가기</button>
+        <button style="margin: 2%;" onClick="history.go(-1)">뒤로가기</button>
 
 </div>

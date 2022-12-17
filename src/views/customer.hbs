@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="customer.css" />
+<link rel="stylesheet" type="text/css" href="all.css" />
 <h1>안녕하세요{{#each userinfo}}<span> {{c_name}}</span>{{/each}} 고객님의 예약/구매 가능차량 조회 페이지입니다.</h1>
 <h1>{{title1}}</h1>
 <table>
@@ -24,6 +24,7 @@
     {{/each}}
     </class>
 </table>
-        <button onclick="location.href = 'http://localhost:3000/reserve'">차량 예약/취소하기</button>
+        <button style="margin: 1%;" onclick="location.href = 'http://localhost:3000/reserve'">차량 예약/취소하기</button>
+        <button style="margin: 1%;" onclick="location.href = 'http://localhost:3000/'">로그아웃</button>
 
 </div>

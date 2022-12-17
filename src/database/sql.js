@@ -49,8 +49,8 @@ export const selectSql = {
     const [rows]=await promisePool.query(`select * from vehicle where not exists (select * from reservation where vin=r_vin)`);
     return rows;
   },
-  getsssn: async(sname)=>{
-    const sql =`select s_ssn from salesman where s_name='${sname}'`;
+  getcssn: async(r_vin)=>{
+    const sql =`select rc_ssn from reservation where r_vin='${r_vin}'`;
     const [result] = await promisePool.query(sql);
     return result;
   },
@@ -73,10 +73,39 @@ export const deleteSql ={
 }
 
 export const updateSql ={
-  updateCar:async()=>{
-    const sql='update '
-  }
+  updatevin:async(u_vin,vin)=>{
+    const sql=`update vehicle set vin='${u_vin}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+  updatemodel:async(model,vin)=>{
+    const sql=`update vehicle set model='${model}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+  updatecolor:async(color,vin)=>{
+    const sql=`update vehicle set vin='${color}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+  updateproductionyear:async(productionyear,vin)=>{
+    const sql=`update vehicle set vin='${productionyear}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+  updateprice:async(price,vin)=>{
+    const sql=`update vehicle set vin='${price}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+  updatecategory:async(category,vin)=>{
+    const sql=`update vehicle set vin='${category}' where vin='${vin}'`
+    await promisePool.query(sql);
+    console.log(sql)
+  },
+
 }
+
 export const insertSql ={
   insertreserve:async(r_vin,cssn,date)=>{
     console.log(r_vin,cssn,date)
@@ -89,5 +118,9 @@ export const insertSql ={
     const sql2 = `delete from reservation where r_vin='${s_vin}' and rc_ssn='${cssn}'`
     await promisePool.query(sql);
     await promisePool.query(sql2);
+  },
+  insertcar:async(vin, model, color, productionyear, price, category,uvin)=>{
+    const sql=`insert into vehicle (vin, model, color, productionyear, price, category) values ('${vin}','${model}','${color}','${productionyear}','${price}','${category}') on duplicate key update vin='${uvin}'`
+    await promisePool.query(sql);
   }
 }

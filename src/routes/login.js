@@ -1,17 +1,3 @@
-// Copyright 2021 kms
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 import cookieParser from "cookie-parser";
 import express from "express";
 import { selectSql } from "../database/sql";
@@ -57,7 +43,7 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
      })
     if (checkLogin&&checkrole=='customer') { // 고객일때
         res.cookie('cssn',cssn,{
-            expires: new Date(Date.now() + 360000), // ms 단위 (3600000: 1시간 유효)
+            expires: new Date(Date.now() + 3600000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
         })
@@ -65,7 +51,7 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
     }   
     else if (checkLogin&&checkrole=='admin') { //관리자일때
         res.cookie('sssn',sssn,{
-            expires: new Date(Date.now() + 360000), // ms 단위 (3600000: 1시간 유효)
+            expires: new Date(Date.now() + 3600000), // ms 단위 (3600000: 1시간 유효)
             //쿠키가 유효한 시간
             httpOnly: true,
         })
