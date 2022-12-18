@@ -65,8 +65,9 @@
      
              <form method="post" action="/reserve/{{r_vin}}">
                 <td>
-                <input type="date" name="reservedate" required="required" min="" max="">
+                <input type="date" min={{../min}} max={{../max}} name="reservedate" required="required">
                 </td>
+                
                 <td> 
                 <button name="reserve"  value="{{vin}}" formaction="/reserve/{{vin}}">예약</button>
                 </td>

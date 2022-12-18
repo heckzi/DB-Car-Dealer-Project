@@ -13,19 +13,18 @@ router.get('/', async function (req, res) {
             var offset=50*Number(req.query.page);
             var limit=50
         }
-        var today=new Date();
-        console.log(today)
-        var maxday=today;
+        var today=new Date().toLocaleDateString().replace(/\./g, '').replace(/\s/g, '-');
+        var maxday=new Date();
         maxday.setMonth(maxday.getMonth()+1);
-      
+        maxday=maxday.toLocaleDateString().replace(/\./g, '').replace(/\s/g, '-');
         const userinfo=await selectSql.getcustomer(req.cookies.cssn);
         const reservelist=await selectSql.getreserve();
         const availablecars= await selectSql.getavailablecars(offset,limit);
-        res.render('reserve',{today,maxday, availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
+        res.render('reserve',{min:today,max:maxday, availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
     }   
     else{
         res.redirect('/');
-        res.render('login'); 
+        res.render('login');
         }
     
   

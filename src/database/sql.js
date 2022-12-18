@@ -113,18 +113,34 @@ export const updateSql ={
 export const insertSql ={
   insertreserve:async(r_vin,cssn,date)=>{
     console.log(r_vin,cssn,date)
-    const sql = `insert into reservation(rc_ssn, r_vin, r_date) values ('${cssn}','${r_vin}','${date}')`;
-    await promisePool.query(sql);
+    const sql1 =`start transaction`
+    const sql2 = `insert into reservation(rc_ssn, r_vin, r_date) values ('${cssn}','${r_vin}','${date}')`
+    const sql3 =`commit`
+
+    await promisePool.query(sql1);
+    await promisePool.query(sql2);
+    await promisePool.query(sql3);
   },
   insertsale:async(s_vin,sssn,cssn,date)=>{
     console.log(s_vin,sssn,cssn,date)
-    const sql = `insert into sale(s_vin, ss_ssn, sc_ssn,s_date) values ('${s_vin}',${sssn},${cssn},'${date}')on duplicate key update s_vin='${s_vin}', ss_ssn=${sssn},sc_ssn=${cssn};`
-    const sql2 = `delete from reservation where r_vin='${s_vin}' and rc_ssn='${cssn}'`
-    await promisePool.query(sql);
+    const sql1 =`start transaction`
+    const sql2 = `insert into sale(s_vin, ss_ssn, sc_ssn,s_date) values ('${s_vin}',${sssn},${cssn},'${date}')
+    on duplicate key update s_vin='${s_vin}', ss_ssn=${sssn},sc_ssn=${cssn};`
+    const sql3 = `delete from reservation where r_vin='${s_vin}' and rc_ssn='${cssn}'`
+    const sql4 =`commit`
+
+    await promisePool.query(sql1);
     await promisePool.query(sql2);
+    await promisePool.query(sql3);
+    await promisePool.query(sql4);
   },
   insertcar:async(vin, model, color, productionyear, price, category,uvin)=>{
-    const sql=`insert into vehicle (vin, model, color, productionyear, price, category) values ('${vin}','${model}','${color}','${productionyear}','${price}','${category}') on duplicate key update vin='${uvin}'`
-    await promisePool.query(sql);
+    const sql1 =`start transaction`
+    const sql2=`insert into vehicle (vin, model, color, productionyear, price, category) values ('${vin}','${model}','${color}','${productionyear}','${price}','${category}') 
+    on duplicate key update vin='${uvin}'`
+    const sql3=`commit`
+    await promisePool.query(sql1);
+    await promisePool.query(sql2);
+    await promisePool.query(sql3);
   }
 }
