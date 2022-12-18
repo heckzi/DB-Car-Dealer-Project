@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async function (req, res) {
     if (req.cookies.sssn) {
-    const reservelist=await selectSql.getreserve();
+    const reservelist=await selectSql.getallreserve();
     const soldcar=await selectSql.getsoldcar(req.cookies.sssn);
     const allsoldcar=await selectSql.getallsoldcar();
         res.render('sale',{ allsoldcar,soldcar, reservelist, sssn: req.cookies.sssn });

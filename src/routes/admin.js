@@ -13,10 +13,7 @@ router.get('/', async function (req, res) {
         if(req.query.page){   
             var offset=50*Number(req.query.page);
             var limit=50
-            console.log(offset)
         }
-        console.log(limit)
-
         const allcar= await selectSql.getallcar(offset,limit);
         const soldcar= await selectSql.getsoldcar(req.cookies.sssn);
         const customerinfo=await selectSql.getallcustomer();
@@ -44,11 +41,6 @@ router.post('/insert',async(req,res)=>{
     };
     await insertSql.insertcar(carinfo.vin, carinfo.model, carinfo.color, carinfo.productionyear, carinfo.price, carinfo.category);
     res.redirect('/admin');
-});
-router.post('/admin/page',async(req,res)=>{
-
-    const vars=req.body.page;
-    console.log(vars)
 });
 router.post('/update/vin/:vin',async(req,res)=>{ 
     const vin =req.params.vin;

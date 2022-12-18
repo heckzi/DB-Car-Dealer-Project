@@ -29,7 +29,11 @@ export const selectSql = {
   getallcustomer:async()=>{
     const [rows]=await promisePool.query(`select * from customer`);
   },
-   getreserve:async()=>{
+   getreserve:async(cssn)=>{
+    const [rows]=await promisePool.query(`select * from reservation where rc_ssn=${cssn}`);
+    return rows;
+  },
+  getallreserve:async()=>{
     const [rows]=await promisePool.query(`select * from reservation`);
     return rows;
   },
@@ -50,7 +54,7 @@ export const selectSql = {
     return rows;
   },
   getavailablecars: async (offset,limit) => {
-    const [rows]=await promisePool.query(`select * from vehicle where vin not in((select vin from vehicle,sale where s_vin=vin) union (select vin from vehicle,reservation where r_vin=vehicle.vin)) limit ${offset},${limit}`);
+    const [rows]=await promisePool.query(`select * from available limit ${offset},${limit}`);
     return rows;
   },
   getcssn: async(r_vin)=>{
@@ -58,8 +62,8 @@ export const selectSql = {
     const [result] = await promisePool.query(sql);
     return result;
   },
-  getsname: async(scssn)=>{
-    const sql =`select s_name from salesman where s_ssn='${scssn}'`;
+  getsname: async(sssn)=>{
+    const sql =`select s_name from salesman where s_ssn='${sssn}'`;
     const [result] = await promisePool.query(sql);
     return result;
   }
@@ -88,22 +92,22 @@ export const updateSql ={
     console.log(sql)
   },
   updatecolor:async(color,vin)=>{
-    const sql=`update vehicle set vin='${color}' where vin='${vin}'`
+    const sql=`update vehicle set color='${color}' where vin='${vin}'`
     await promisePool.query(sql);
     console.log(sql)
   },
   updateproductionyear:async(productionyear,vin)=>{
-    const sql=`update vehicle set vin='${productionyear}' where vin='${vin}'`
+    const sql=`update vehicle set productionyear='${productionyear}' where vin='${vin}'`
     await promisePool.query(sql);
     console.log(sql)
   },
   updateprice:async(price,vin)=>{
-    const sql=`update vehicle set vin='${price}' where vin='${vin}'`
+    const sql=`update vehicle set price='${price}' where vin='${vin}'`
     await promisePool.query(sql);
     console.log(sql)
   },
   updatecategory:async(category,vin)=>{
-    const sql=`update vehicle set vin='${category}' where vin='${vin}'`
+    const sql=`update vehicle set category='${category}' where vin='${vin}'`
     await promisePool.query(sql);
     console.log(sql)
   },

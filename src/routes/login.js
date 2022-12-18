@@ -9,10 +9,7 @@ router.use(cookieParser());
 
 
 router.get('/', (req, res) => {
- 
-  
-    res.render('login'); //로그인 안했으면 login.hbs 를 넘겨줌
-    
+    res.render('login');
 });
 router.get('/logout', (req, res) => {
     res.clearCookie('sssn') //쿠키를 초기화 해라
@@ -31,7 +28,6 @@ router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 �
     users.map((user) => { // for 루프라고 생각하면 됨
         //for(let i =0; i<users.length; i++);{users}
         //각 user의 수마다 루프가 돈다고 생각
-        //console.log(user)
         if (vars.id == user.id && vars.password == user.password) {
             // user 다음엔 대문자를 구분한다!! sql에서 불러오지만 js는 대문자 구분함.
             checkLogin = true;

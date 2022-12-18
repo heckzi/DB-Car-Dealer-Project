@@ -11,7 +11,6 @@ router.get('/', async function (req, res) {
     if(req.query.page){   
         var offset=50*Number(req.query.page);
         var limit=50
-        console.log(limit)
     }
     const availablecars= await selectSql.getavailablecars(offset,limit);
     if (req.cookies.cssn) {
