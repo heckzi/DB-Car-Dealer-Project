@@ -7,17 +7,23 @@ const router = express.Router();
 
 router.get('/', async function (req, res) {
     // 차 정보 불러오기
-
     if (req.cookies.sssn) {
-        // 불러온 user 정보 같이 넘겨주기
-        const availablecars= await selectSql.getavailablecars();
+        var offset=0;
+        var limit=50;
+        if(req.query.page){   
+            var offset=50*Number(req.query.page);
+            var limit=50
+            console.log(offset)
+        }
+        console.log(limit)
+
+        const allcar= await selectSql.getallcar(offset,limit);
         const soldcar= await selectSql.getsoldcar(req.cookies.sssn);
         const customerinfo=await selectSql.getallcustomer();
         const sname=await selectSql.getsname(req.cookies.sssn);
-        console.log(sname)
-        res.render('admin',{sname,soldcar,customerinfo, availablecars, sssn: req.cookies.sssn });
+        res.render('admin',{sname,soldcar,customerinfo, allcar, sssn: req.cookies.sssn });
     } else {
-        res.render('/login')
+        res.render('/')
     }
 
 });
@@ -38,6 +44,11 @@ router.post('/insert',async(req,res)=>{
     };
     await insertSql.insertcar(carinfo.vin, carinfo.model, carinfo.color, carinfo.productionyear, carinfo.price, carinfo.category);
     res.redirect('/admin');
+});
+router.post('/admin/page',async(req,res)=>{
+
+    const vars=req.body.page;
+    console.log(vars)
 });
 router.post('/update/vin/:vin',async(req,res)=>{ 
     const vin =req.params.vin;

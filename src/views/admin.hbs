@@ -1,7 +1,8 @@
 
 <link rel="stylesheet" type="text/css" href="all.css" />
-<h1>안녕하세요 {{#each sname}}<span>{{s_name}}</span>{{/each}} 관리자님의 차량 관리페이지입니다.</h1>
-<h1>{{title1}}</h1>
+<h1>안녕하세요 {{#each sname}}<span>{{s_name}}</span>{{/each}} 관리자님의 차량 관리페이지입니다.         
+<button style="margin:1% ;" onclick="location.href = 'http://localhost:3000/logout'">로그아웃</button>
+</h1>
 <table>
     본인께서 판매하신 차량 내역입니다.
     <div class="sold"><tr>
@@ -52,6 +53,12 @@
 </table>
 <table>
     <h1>DB에서 수정할 내용을 입력 후 수정하기를 누르거나 삭제할 차량을 선택하세요</h1>
+    <h3>보고싶은 차량페이지(50개씩 출력)를 입력하시오
+        <form method="get" action="/admin">
+        <input id="page" type="number" name="page"placeholder='0~1999' min="0" max="1999">
+        <input type="submit" value="확인">
+        </form>
+    </h3>
     <div class="update">
             <tr>
             <td>차대번호</td>
@@ -60,10 +67,9 @@
             <td>생산연도</td>
             <td>가격($)</td>
             <td>분류</td>
-
             <td>삭제</td>
             </tr>
-         {{#each availablecars}}
+         {{#each allcar}}
          <tr>
             <form method="post" action="/admin">
                 <td><input id="vin" type="text" name="vin"  placeholder={{vin}}>
@@ -83,6 +89,5 @@
         </tr>
      {{/each}}
 </table>
-        <button style="margin:1% ;" onclick="location.href = 'http://localhost:3000/'">로그아웃</button>
 
 

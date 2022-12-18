@@ -37,6 +37,10 @@ export const selectSql = {
     const [rows]=await promisePool.query(`select * from vehicle where vin='${vin}'`);
     return rows;
   },
+  getallcar:async(offset,limit)=>{
+    const [rows]=await promisePool.query(`select * from vehicle limit ${offset},${limit}`);
+    return rows;
+  },
   getsoldcar: async (sssn) => {
     const [rows]=await promisePool.query(`select * from sale where ss_ssn=${sssn}`);
     return rows;
@@ -45,8 +49,8 @@ export const selectSql = {
     const [rows]=await promisePool.query(`select * from sale`);
     return rows;
   },
-  getavailablecars: async () => {
-    const [rows]=await promisePool.query(`select * from vehicle where not exists (select * from reservation where vin=r_vin)`);
+  getavailablecars: async (offset,limit) => {
+    const [rows]=await promisePool.query(`select * from vehicle where vin not in((select vin from vehicle,sale where s_vin=vin) union (select vin from vehicle,reservation where r_vin=vehicle.vin)) limit ${offset},${limit}`);
     return rows;
   },
   getcssn: async(r_vin)=>{

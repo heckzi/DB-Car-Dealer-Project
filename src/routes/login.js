@@ -9,12 +9,16 @@ router.use(cookieParser());
 
 
 router.get('/', (req, res) => {
-    if (req.cookies.user) { 
-        res.render('customer', { 'user': req.cookies.user }); //로그인을 했으면 customer.hbs 넘겨줌
+ 
+  
+    res.render('login'); //로그인 안했으면 login.hbs 를 넘겨줌
+    
+});
+router.get('/logout', (req, res) => {
+    res.clearCookie('sssn') //쿠키를 초기화 해라
+    res.clearCookie('cssn') //쿠키를 초기화 해라
+    res.render('login'); //로그인 안했으면 login.hbs 를 넘겨줌
 
-    } else { // 위에 유저라는 변수에 '조조'가 넘어옴
-        res.render('login'); //로그인 안했으면 login.hbs 를 넘겨줌
-    }
 });
 
 router.post('/', async (req, res) => { //웹에서 폼으로 post 메소드로 넘어왔음

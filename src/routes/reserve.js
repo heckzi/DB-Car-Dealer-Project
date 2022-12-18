@@ -7,10 +7,21 @@ router.get('/', async function (req, res) {
     if (req.cookies.cssn) {
         // 불러온 cssn 정보 같이 넘겨주기
             // 차 정보 불러오기
+        var offset=0;
+        var limit=offset+50;
+        if(req.query.page){   
+            var offset=50*Number(req.query.page);
+            var limit=50
+        }
+        var today=new Date();
+        console.log(today)
+        var maxday=today;
+        maxday.setMonth(maxday.getMonth()+1);
+      
         const userinfo=await selectSql.getcustomer(req.cookies.cssn);
         const reservelist=await selectSql.getreserve();
-        const availablecars= await selectSql.getavailablecars();
-        res.render('reserve',{ availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
+        const availablecars= await selectSql.getavailablecars(offset,limit);
+        res.render('reserve',{today,maxday, availablecars,userinfo,reservelist, 'cssn': req.cookies.cssn });
     }   
     else{
         res.redirect('/');
@@ -21,7 +32,6 @@ router.get('/', async function (req, res) {
 });
 router.post('/delete/:r_vin',async(req,res)=>{ //예약취소 버튼
     const r_vin=req.params.r_vin;
-    // const cssn=req.params.cssn;
     console.log(r_vin,req.cookies.cssn);
     await deleteSql.deletereserve(r_vin,req.cookies.cssn);
     res.redirect('/reserve');

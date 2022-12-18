@@ -12,7 +12,7 @@ td {
   align-items: center;
   justify-content: center;
   border: #b8f0c0 solid 1px !important;
-  height: 50px;
+  height: 35px;
   width:100%; 
   /* 너비 지정해줌 */
 }
