@@ -9,6 +9,8 @@
 
 <ERD사상>
 
+![image](https://github.com/heckzi/DB-Car-Dealer-Project/assets/110593187/1ba70b5d-19fd-4cc2-9187-024788e85993)
+
 위와같이 ERD를 사상하였습니다.
 
 User테이블은 각 Salesman(판매자)와 고객을 구분지어주는 역할을 합니다. 모든 판매자와 고객은 User테이블에 있어야 하므로 전체참여로 1대1 관계로 그려주었습니다.
@@ -24,6 +26,8 @@ Vehicle 테이블은 판매자가 판매도 할 수 있고 구매자는 구매�
 
 
 <데이터베이스 테이블 스키마>
+![image](https://github.com/heckzi/DB-Car-Dealer-Project/assets/110593187/51092508-8624-47d1-8b40-048fe285e4d0)
+
 
 위의 ERD를 바탕으로 사상한 DB스키마 입니다. 이미 제3 정규형을 만족하는 스키마입니다.
 
@@ -47,7 +51,7 @@ car라는 Database를 사용하겠습니다.
 
 vin은 차량의 차대번호입니다.
 
-. 
+![image](https://github.com/heckzi/DB-Car-Dealer-Project/assets/110593187/056e71c9-ff4f-4c72-b229-a30505edb5ad)
 
 **그림 1 출처: [https://m.blog.naver.com/hwgi01/221183650544**](https://m.blog.naver.com/hwgi01/221183650544)**
 
@@ -69,6 +73,8 @@ vin은 17자리 varchar형입니다. 위 그림의 차대번호의 형식을 따
 고객 테이블의 설명과 마찬가지로 s\_phonenum은 null허용입니다.
 
 user 테이블입니다. 페이지에 로그인하기위해 필요한 id와 password를 가지며 role로 관리자(=판매자)인지 고객인지 구분시켜 주었습니다. uc\_ssn과 us\_ssn으로 로그인한 정보를 다른 테이블의 각 사람들과 설계과정에서 매칭시켜줍니다. 
+
+![image](https://github.com/heckzi/DB-Car-Dealer-Project/assets/110593187/4fbfdcb0-2d49-4b72-8869-ebf79c2bfae5)
 
 위는 설계한 Car 데이터베이스의 Workbench상 ERD입니다. 노란색으로 보이는 available은 view이고 vehicle 테이블에 countVin이라는 인덱스를 확인 할 수 있습니다.
 
